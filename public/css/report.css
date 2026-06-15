@@ -1,0 +1,173 @@
+.report-config-box {
+    background-color: #e0e0e0;
+    border-radius: 12px;
+    padding: 35px;
+    margin-bottom: 30px;
+}
+
+.config-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.form-section {
+    margin-bottom: 30px;
+}
+
+.form-label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #1a1a1a;
+    font-size: 15px;
+}
+
+.form-section select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #999;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: inherit;
+    background-color: white;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.form-section select:focus {
+    outline: none;
+    border-color: #d9534f;
+    box-shadow: 0 0 0 3px rgba(217, 83, 79, 0.1);
+}
+
+.required {
+    color: #d9534f;
+    font-weight: 700;
+}
+
+.filters-section {
+    margin-top: 30px;
+}
+
+.filter-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+    margin-top: 0;
+}
+
+.filter-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-group label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 14px;
+}
+
+.filter-group select,
+.filter-group input {
+    padding: 12px 15px;
+    border: 2px solid #999;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    background-color: white;
+    transition: border-color 0.3s ease;
+}
+
+.filter-group select:focus,
+.filter-group input:focus {
+    outline: none;
+    border-color: #d9534f;
+    box-shadow: 0 0 0 3px rgba(217, 83, 79, 0.1);
+}
+
+.filter-group input[type="date"] {
+    cursor: pointer;
+}
+
+.button-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.btn-generate {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 40px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-generate:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-generate:active {
+    transform: translateY(0);
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+    .report-config-box {
+        padding: 25px;
+    }
+
+    .filter-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .button-row {
+        justify-content: center;
+    }
+
+    .btn-generate {
+        width: 100%;
+    }
+
+    .form-section select,
+    .filter-group select,
+    .filter-group input {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .report-config-box {
+        padding: 20px;
+    }
+
+    .config-title,
+    .filter-title {
+        font-size: 16px;
+    }
+
+    .form-label {
+        font-size: 14px;
+    }
+}

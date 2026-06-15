@@ -1,0 +1,258 @@
+/* LAYOUT UTAMA */
+.settings-page {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.page-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 6px 0;
+}
+
+.page-subtitle {
+    font-size: 14px;
+    color: #999;
+    margin: 0 0 25px 0;
+}
+
+/* FORM CONTAINER */
+.settings-form {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid #e8e8e8;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.form-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-divider {
+    width: 1px;
+    background: #e8e8e8;
+}
+
+/* HEADER */
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.section-header h2 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.section-badge {
+    background: rgb(231, 230, 220);
+    color: rgb(255, 42, 4);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 12px;
+    text-transform: uppercase;
+}
+
+.section-note {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* ELEMEN FORM NYA */
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+}
+
+.required {
+    color: #d9534f;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #28a745;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+}
+
+.form-group input[readonly] {
+    background-color: #f9f9f9;
+    color: #777;
+    cursor: not-allowed;
+    border-color: #eee;
+}
+
+.password-strength {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 8px;
+}
+
+.strength-bar {
+    height: 5px;
+    background: #e8e8e8; 
+    border-radius: 3px;
+    width: 0%;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.strength-bar.weak {
+    background-color: #d9534f; 
+}
+
+.strength-bar.medium {
+    background-color: #f0ad4e; 
+}
+
+.strength-bar.strong {
+    background-color: #28a745;
+}
+
+.strength-text {
+    font-size: 11px;
+    color: #666;
+    font-weight: 600;
+    text-align: right;
+}
+
+/* TOMBOL AKSI */
+.form-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    padding-top: 20px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary {
+    background: #28a745;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #218838;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+}
+
+.btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* TOAST NOTIFICATION */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    min-width: 250px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    opacity: 0;
+}
+
+.toast.success {
+    background-color: #28a745;
+    border-left: 4px solid #1e7e34;
+}
+
+.toast.error {
+    background-color: #d9534f;
+    border-left: 4px solid #c9302c;
+}
+
+.toast.warning {
+    background-color: #f0ad4e;
+    border-left: 4px solid #ec971f;
+    color: #fff;
+}
+
+/* RESPONSIF */
+@media (max-width: 768px) {
+    .settings-form {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .form-divider {
+        display: none;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .btn {
+        width: 100%;
+    }
+}

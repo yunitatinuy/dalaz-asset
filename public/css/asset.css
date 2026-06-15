@@ -1,0 +1,731 @@
+/* page header dan layout */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
+}
+
+.page-actions {
+    display: flex;
+    gap: 12px;
+}
+
+/* Button */
+.btn-add,
+.btn-add-record,
+.btn-save,
+.form-actions-modal .btn-save {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-add,
+.btn-add-record {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-add:hover,
+.btn-add-record:hover,
+.btn-save:hover,
+.form-actions-modal .btn-save:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+}
+
+.btn-back-inout,
+.btn-reset,
+.btn-cancel,
+.form-actions-modal .btn-cancel {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-back-inout {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 8px;
+}
+
+.btn-back-inout:hover {
+    transform: translateX(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-reset:hover,
+.btn-cancel:hover,
+.form-actions-modal .btn-cancel:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+.btn-confirm-delete {
+    background-color: #e74c3c; 
+    color: white;
+    padding: 10px 24px; 
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(231, 76, 60, 0.2);
+}
+
+.btn-confirm-delete:hover {
+    background-color: #c0392b; 
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+}
+
+.form-actions-modal button {
+    min-width: 100px; 
+}
+
+/* Button View Damaged Assets */
+.btn-view {
+    background: linear-gradient(135deg, #e73c7e 0%, #c02b73 100%);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(231, 76, 60, 0.2);
+}
+
+.btn-view:hover {
+    background: linear-gradient(135deg, #c02b73 0%, #a9267d 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+}
+
+.modal-close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.modal-close-btn:hover {
+    color: #333;
+}
+
+.existing-pictures {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.existing-pictures img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+/* data tabel */
+.data-table {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.table-responsive::-webkit-scrollbar {
+    display: none;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.table th {
+    background-color: #f5f5f5;
+    padding: 16px 12px;
+    text-align: left;
+    font-weight: 700;
+    color: #333;
+    border-bottom: 2px solid #e0e0e0;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.table td {
+    padding: 16px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    color: #555;
+    vertical-align: middle;
+}
+
+.table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background-color: #fafafa;
+}
+
+.table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* KOLOM AKSI */
+.table th:last-child,
+.table td:last-child {
+    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
+    text-align: center;
+    padding: 12px 8px;
+}
+
+/* ACTION BUTTON */
+.action-buttons {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.action-buttons button {
+    border: none;
+    padding: 8px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    flex-shrink: 0;
+}
+
+.action-buttons button i {
+    font-size: 14px;
+    margin: 0;
+}
+
+/* PDF Button */
+.btn-pdf {
+    background-color: #c0392b;
+    color: white;
+    order: 1;
+}
+
+.btn-pdf:hover {
+    background-color: #a93226;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(192, 57, 43, 0.3);
+}
+
+/* QR Code */
+.btn-view-qr {
+    background-color: #27ae60;
+    color: white;
+    order: 2;
+}
+
+.btn-view-qr:hover {
+    background-color: #229954;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(39, 174, 96, 0.3);
+}
+
+/* Edit */
+.btn-edit {
+    background-color: #3498db;
+    color: white;
+    order: 3;
+}
+
+.btn-edit:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+}
+
+/* Delete */
+.btn-delete {
+    background-color: #e74c3c;
+    color: white;
+    order: 4;
+}
+
+.btn-delete:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+}
+
+.action-buttons button:active {
+    transform: translateY(0);
+}
+
+.action-buttons button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.action-buttons button:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Paginasi */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 0 20px 20px;
+}
+
+.pagination a,
+.pagination span {
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #999;
+    background-color: #f5f5f5;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
+}
+
+.pagination .current {
+    background-color: #B04B4B;
+    color: white;
+}
+
+.pagination .disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* form */
+.form-row,
+.form-row-modal {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.form-row.full-width,
+.form-row-modal.full-width,
+.form-group.full-width {
+    grid-template-columns: 1fr;
+}
+
+.form-group,
+.inout-form-modal .form-group,
+.form-group-full {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label,
+.inout-form-modal .form-group label,
+.form-group-full label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 13px;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea,
+.inout-form-modal .form-group input,
+.inout-form-modal .form-group select,
+.inout-form-modal .form-group textarea,
+.form-group-full textarea {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #d4d4d4;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus,
+.inout-form-modal .form-group input:focus,
+.inout-form-modal .form-group select:focus,
+.inout-form-modal .form-group textarea:focus,
+.form-group-full textarea:focus {
+    outline: none;
+    border-color: #B04B4B;
+    box-shadow: 0 0 0 3px rgba(176, 75, 75, 0.1);
+}
+
+.form-group input:disabled,
+.inout-form-modal .form-group input:disabled {
+    background-color: #f5f5f5;
+    color: #999;
+}
+
+.form-group textarea,
+.inout-form-modal .form-group textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+.form-group-full textarea {
+    min-height: 80px;
+}
+
+.form-actions,
+.form-actions-modal {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.form-actions-modal {
+    justify-content: flex-end;
+    padding-top: 16px;
+    border-top: 1px solid #f0f0f0;
+}
+
+/* auto complate */
+.autocomplete-wrapper {
+    position: relative;
+}
+
+.autocomplete-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #d4d4d4;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    max-height: 180px;
+    overflow-y: auto;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.autocomplete-item {
+    padding: 10px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s ease;
+    font-size: 13px;
+}
+
+.autocomplete-item:hover {
+    background-color: #f0f0f0;
+}
+
+.autocomplete-item:last-child {
+    border-bottom: none;
+}
+
+.autocomplete-item-empty {
+    padding: 12px;
+    text-align: center;
+    color: #999;
+    font-size: 13px;
+}
+
+/* Badge */
+.badge-in {
+    display: inline-block;
+    background-color: #28a745;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-out {
+    display: inline-block;
+    background-color: #dc3545;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Badge Hijau (Baik) */
+.badge-success {
+    background-color: rgba(40, 167, 69, 0.15); 
+    color: #1e7e34;
+    display: inline-block;
+}
+
+/* Badge Merah (Rusak) */
+.badge-danger {
+    background-color: rgba(220, 53, 69, 0.15); 
+    color: #dc3545; 
+    display: inline-block;
+}
+
+/* Badge Kuning (Perlu Pemeliharaan) */
+.badge-warning {
+    background-color: rgba(255, 193, 7, 0.15); 
+    color: #856404; 
+    display: inline-block;
+}
+
+/* Badge Biru (Dalam Perbaikan) */
+.badge-info {
+    background-color: rgba(23, 162, 184, 0.15); 
+    color: #117a8b; 
+    display: inline-block;
+}
+
+.log-section {
+    margin-top: 20px;
+}
+
+.log-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #B04B4B;
+}
+
+.modal-header-custom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.modal-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+/* Textarea Usage Steps */
+.multiline-textarea {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    resize: vertical;
+    min-height: 120px;
+    padding: 10px;
+    white-space: pre-wrap;
+}
+
+.multiline-textarea::placeholder {
+    color: #999;
+    font-style: italic;
+}
+
+.inout-form-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-in {
+    background: #d4edda;
+    color: #155724;
+}
+
+.badge-out {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+#imagePreview {
+    margin-top: 12px;
+    padding: 12px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border: 2px dashed #e0e0e0;
+    text-align: center;
+}
+
+#previewImg {
+    max-width: 100%;
+    max-height: 300px;
+    height: auto;
+    width: auto;
+    object-fit: contain;
+    border-radius: 6px;
+    border: 2px solid #e0e0e0;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Responsif */
+@media (max-width: 768px) {
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 15px;
+    }
+
+    .page-title {
+        font-size: 20px !important; 
+    }
+
+    /* 1. tombol import, view, add */
+    .page-actions,
+    .btn-group {
+        display: flex !important;
+        flex-direction: row !important; 
+        flex-wrap: nowrap !important; 
+        width: 100% !important;
+        gap: 5px !important; 
+    }
+
+    .page-actions .btn,
+    .page-actions a,
+    .page-actions button,
+    .btn-group .btn,
+    .btn-group a,
+    .btn-group button,
+    .btn-group .btn-cyan,
+    .btn-group .btn-add,
+    .btn-group .btn-view {
+        flex: 1 1 0 !important; 
+        padding: 5px 2px !important; 
+        font-size: 10px !important; 
+        height: 30px !important; 
+        min-height: 30px !important;
+        white-space: nowrap !important; 
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .page-actions .btn i,
+    .page-actions a i,
+    .btn-group button i,
+    .btn-group a i {
+        font-size: 10px !important;
+        margin-right: 4px !important;
+    }
+
+    .table th:last-child, 
+    .table td:last-child {
+        width: auto !important;
+        min-width: auto !important;
+        max-width: none !important;
+        text-align: center !important;
+    }
+
+    /* 2. tombol aksi */
+    .action-buttons {
+        display: flex !important;
+        flex-direction: row !important; 
+        flex-wrap: nowrap !important; 
+        justify-content: center !important; 
+        align-items: center !important;
+        gap: 5px !important;
+    }
+
+    .action-buttons .btn,
+    .action-buttons a,
+    .action-buttons button,
+    .btn-edit, .btn-delete, .btn-pdf, .btn-view-qr {
+        flex: 0 0 28px !important; 
+        width: 28px !important;
+        height: 28px !important;
+        min-width: 28px !important;
+        padding: 0 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 4px !important;
+    }
+
+    .action-buttons .btn i,
+    .action-buttons a i {
+        font-size: 12px !important;
+        margin: 0 !important;
+    }
+
+    .table {
+        font-size: 11px !important;
+    }
+    .table th, .table td {
+        padding: 10px 5px !important;
+    }
+    .form-row, .form-row-modal {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,7 @@
+# dalaz-asset/.htaccess
+RewriteEngine On
+RewriteBase /dalaz-asset/
+
+# Redirect ke folder public
+RewriteCond %{REQUEST_URI} !^/dalaz-asset/public/
+RewriteRule ^(.*)$ public/$1 [L]

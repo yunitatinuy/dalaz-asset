@@ -1,0 +1,314 @@
+.dashboard-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 40px;
+    margin-top: 0;
+    letter-spacing: -0.5px;
+}
+
+.stat-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, var(--card-color) 0%, var(--card-color-dark) 100%);
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+}
+
+.stat-card img {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    filter: brightness(0) invert(1);
+}
+
+.stat-icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.stat-number {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    position: relative;
+    z-index: 1;
+    letter-spacing: -1px;
+}
+
+.stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    position: relative;
+    z-index: 1;
+    opacity: 0.95;
+    line-height: 1.3;
+}
+
+.stat-card-1 { --card-color: #B07A4B; --card-color-dark: #96643a; }
+.stat-card-2 { --card-color: #A6B04B; --card-color-dark: #8f9a3a; }
+.stat-card-3 { --card-color: #4B7DB0; --card-color-dark: #3a6a96; }
+.stat-card-4 { --card-color: #B04B7D; --card-color-dark: #963a66; }
+.stat-card-5 { --card-color: #B04B4B; --card-color-dark: #963a3a; }
+.stat-card-6 { --card-color: #4BB088; --card-color-dark: #3a9a6f; }
+
+.dashboard-panels {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.panel {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.2s ease;
+    border: 1px solid #f0f0f0;
+}
+
+.panel:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.panel-header {
+    padding: 18px 20px;
+    background: linear-gradient(90deg, var(--panel-color) 0%, var(--panel-color-dark) 100%);
+    border-bottom: 2px solid var(--panel-color-dark);
+}
+
+.panel-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+    letter-spacing: -0.3px;
+}
+
+/* warna panel */
+.panel:nth-child(1) .panel-header {
+    --panel-color: #A6B04B;
+    --panel-color-dark: #8f9a3a;
+}
+
+.panel:nth-child(2) .panel-header {
+    --panel-color: #B04B7D;
+    --panel-color-dark: #963a66;
+}
+
+.panel:nth-child(3) .panel-header {
+    --panel-color: #4B7DB0;
+    --panel-color-dark: #3a6a96;
+}
+
+.panel:nth-child(4) .panel-header {
+    --panel-color: #B04B4B;
+    --panel-color-dark: #963a3a;
+}
+
+.panel-body {
+    padding: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.panel-body::-webkit-scrollbar {
+    display: none;
+}
+
+.panel-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.panel-table th {
+    background: linear-gradient(135deg, #f5f5f5 0%, #eeeeee 100%);
+    padding: 14px 10px;
+    text-align: left;
+    font-weight: 700;
+    color: #333;
+    border-bottom: 2px solid #ddd;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.panel-table td {
+    padding: 14px 10px;
+    border-bottom: 1px solid #f0f0f0;
+    color: #555;
+    font-weight: 500;
+}
+
+.panel-table tr {
+    transition: background-color 0.2s ease;
+}
+
+.panel-table tbody tr:hover {
+    background: linear-gradient(90deg, #f9f9f9 0%, #f5f5f5 100%);
+}
+
+.panel-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 50px 20px;
+    color: #bbb;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.note-box {
+    background: linear-gradient(135deg, #fffbf0 0%, #fff8f0 100%);
+    border-left: 4px solid #ffc107;
+    padding: 14px 16px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #555;
+    margin-top: 16px;
+    border: 1px solid #f5e6d3;
+}
+
+.note-box strong {
+    color: #f39c12;
+    font-weight: 600;
+}
+
+.badge-sm {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.badge-red {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.badge-orange {
+    background-color: #fff3e0;
+    color: #e65100;
+}
+
+.panel-wide {
+    grid-column: span 2;
+}
+
+/* responsif mobile */
+@media (max-width: 1024px) {
+    .stat-cards {
+        grid-template-columns: repeat(3, 1fr); 
+    }
+
+    .dashboard-panels {
+        grid-template-columns: 1fr; 
+    }
+
+    .panel-wide {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 20px 10px !important; 
+    }
+
+    .dashboard-title {
+        font-size: 22px; 
+        padding: 0; 
+        margin-bottom: 25px;
+    }
+
+    /* 2 Kolom Sejajar */
+    .stat-cards {
+        grid-template-columns: repeat(2, 1fr) !important; 
+        gap: 12px;
+    }
+
+    .stat-card {
+        padding: 15px 10px;
+    }
+
+    .stat-number {
+        font-size: 22px !important; 
+    }
+
+    .stat-label {
+        font-size: 10px;
+    }
+
+    .panel-body {
+        overflow-x: auto;
+        padding: 12px;
+    }
+
+    .panel-table {
+        min-width: 400px; 
+    }
+
+    .panel-table th, .panel-table td {
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        padding: 15px 8px !important; 
+    }
+
+    .stat-cards {
+        grid-template-columns: repeat(2, 1fr) !important; 
+        gap: 10px !important; 
+    }
+    
+    .stat-card {
+        padding: 12px 8px !important; 
+    }
+
+    .stat-card img {
+        width: 24px;
+        height: 24px;
+        margin-bottom: 8px;
+    }
+
+    .stat-number {
+        font-size: 18px !important; 
+        margin-bottom: 4px;
+    }
+}

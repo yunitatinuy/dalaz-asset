@@ -1,0 +1,314 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f6f9;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Untuk Chrome, Safari, dan Opera */
+html::-webkit-scrollbar, 
+body::-webkit-scrollbar {
+    display: none;
+}
+
+/* Untuk Firefox */
+html, body {
+    scrollbar-width: none; 
+}
+
+/* Untuk IE dan Edge */
+html, body {
+    -ms-overflow-style: none;
+}
+
+/* STICKY HEADER */
+.user-header {
+    background: linear-gradient(90deg, #BB1B1B 0%, #1a0000 100%);
+    height: 70px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    position: sticky;
+    top: 0;
+    z-index: 99999; 
+    width: 100%;
+}
+
+.header-container {
+    width: 100%;
+    padding: 0 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+}
+
+.header-logo img {
+    height: 40px;
+    width: auto;
+    filter: drop-shadow(0 0 2px rgba(0,0,0,0.3));
+}
+
+.header-nav {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    font-size: 14px;
+    padding: 8px 18px;
+    border-radius: 50px;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-link i { font-size: 16px; }
+
+.nav-link.active {
+    background-color: white;
+    color: #BB1B1B;
+    font-weight: 700;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.nav-link:not(.active):hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.user-dropdown-container {
+    position: relative;
+    z-index: 100000; 
+}
+
+.user-pill-btn {
+    background: white;
+    border: none;
+    border-radius: 50px;
+    padding: 5px 5px 5px 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    height: 40px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+    transition: 0.3s;
+    position: relative;
+}
+
+.user-pill-btn:hover {
+    background: #f0f0f0;
+    transform: translateY(-1px);
+}
+
+.user-name {
+    font-weight: 700;
+    font-size: 14px;
+    color: #333; 
+}
+
+.user-icon-circle {
+    width: 30px;
+    height: 30px;
+    background: #2c3e50;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+/* Dropdown */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 50px; 
+    right: 0;
+    background: white;
+    min-width: 160px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    overflow: hidden;
+    z-index: 100001;
+    border: 1px solid #eee;
+}
+
+.dropdown-menu.show { display: block; }
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    border-bottom: 1px solid #f5f5f5;
+    transition: 0.2s;
+}
+
+.dropdown-item:hover {
+    background: #f9f9f9;
+    color: #BB1B1B;
+    padding-left: 25px;
+}
+
+body .main-content {
+    padding-top: 20px !important; 
+    padding-bottom: 40px;
+}
+
+/* 1. Pengaturan Layout Body agar Footer Sticky di Bawah */
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+body .main-content {
+    flex: 1; /* Mendorong footer ke bawah jika konten sedikit */
+}
+
+/* 2. Styling Footer User */
+.user-footer {
+    background-color: white;
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #eee;
+    margin-top: auto;
+    font-size: 13px;
+    color: #666;
+    width: 100%;
+}
+
+/* 3. Tombol Hamburger (Hanya muncul di Mobile) */
+.mobile-menu-btn {
+    display: none; 
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.mobile-menu-btn:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+/* responsif ketika di HP */
+@media (max-width: 991px) {
+    .header-container {
+        padding: 0 15px;
+    }
+
+    /* Munculkan Tombol Hamburger */
+    .mobile-menu-btn {
+        display: block;
+        margin-right: 15px; /* Memberi jarak antara hamburger dan profil */
+    }
+
+    /* Pindahkan Profil ke paling kanan secara natural */
+    .header-right {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Sembunyikan Nama User di HP agar tidak sempit */
+    .user-name {
+        display: none;
+    }
+
+    .user-pill-btn {
+        padding: 5px; 
+    }
+
+    /* Ubah Menu Navigasi jadi Dropdown Vertikal */
+    .header-nav {
+        display: none; 
+        position: fixed;
+        top: 70px; 
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        padding: 10px 0;
+        gap: 0;
+        border-top: 1px solid #eee;
+        z-index: 9999; 
+    }
+
+    .header-nav.active {
+        display: flex;
+    }
+
+    .nav-link {
+        color: #333;
+        border-radius: 0;
+        padding: 15px 25px;
+        justify-content: flex-start;
+        width: 100%;
+    }
+
+    .nav-link i {
+        width: 25px;
+        text-align: center;
+        color: #888;
+    }
+
+    .nav-link:hover,
+    .nav-link:not(.active):hover {
+        background: #f8f9fa;
+        color: #BB1B1B; 
+    }
+
+    .nav-link:hover i,
+    .nav-link:not(.active):hover i {
+        color: #BB1B1B;
+    }
+
+    .nav-link.active {
+        background: #fff5f5;
+        color: #BB1B1B;
+        box-shadow: inset 4px 0 0 #BB1B1B; 
+    }
+
+    .nav-link.active i {
+        color: #BB1B1B;
+    }
+}

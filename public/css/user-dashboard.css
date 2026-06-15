@@ -1,0 +1,176 @@
+body {
+    padding-top: 0 !important;
+}
+
+::-webkit-scrollbar { 
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* layout */
+.main-content { 
+    padding: 40px 30px; 
+    display: flex; 
+    justify-content: center;
+    min-height: calc(100vh - 70px);
+}
+
+.dashboard-container { width: 100%; max-width: 1200px; margin: 0 auto; }
+
+.welcome-text {
+    font-size: 28px;
+    font-weight: 800; 
+    color: #2c3e50;
+    margin-bottom: 30px;
+    letter-spacing: -0.5px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+.stat-card {
+    border-radius: 12px;
+    padding: 20px 15px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+.stat-card:hover { transform: translateY(-5px); }
+.stat-number { font-size: 32px; font-weight: 700; line-height: 1; margin-bottom: 5px; }
+.stat-label { font-size: 13px; font-weight: 500; opacity: 0.9; }
+
+/* warna kartu nya */
+.bg-brown { background: linear-gradient(135deg, #B07A4B 0%, #8a5e38 100%); }
+.bg-green { background: linear-gradient(135deg, #A6B04B 0%, #858d3a 100%); }
+.bg-blue  { background: linear-gradient(135deg, #4B7DB0 0%, #355d85 100%); }
+.bg-pink  { background: linear-gradient(135deg, #B04B7D 0%, #85365d 100%); }
+
+/* grid konten */
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-bottom: 25px;
+}
+
+.content-card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    min-height: 220px;
+    display: flex; flex-direction: column;
+}
+
+.card-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 20px; font-size: 16px; font-weight: 700; color: #444;
+    border-bottom: 1px solid #f0f0f0; padding-bottom: 12px;
+}
+.card-header .icon { font-size: 20px; }
+
+/* notifikasi */
+.alert-box {
+    background-color: #f0f7ff;
+    border-left: 4px solid #4B7DB0;
+    padding: 15px; border-radius: 6px;
+    color: #2c3e50; font-size: 13px; font-weight: 500;
+}
+
+.empty-state {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    color: #999; font-size: 13px; text-align: center; line-height: 1.6;
+}
+
+/* list aset */
+.asset-list {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
+}
+.asset-item {
+    background: linear-gradient(135deg, #6C5CE7 0%, #5649c0 100%);
+    color: white; padding: 15px; border-radius: 12px;
+    position: relative; min-height: 85px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    transition: transform 0.2s;
+}
+.asset-item:hover { transform: translateY(-3px); }
+
+.asset-badge {
+    position: absolute; top: 12px; left: 12px;
+    background: rgba(255,255,255,0.25);
+    width: 20px; height: 20px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: bold;
+}
+.asset-count {
+    position: absolute; top: 12px; right: 12px;
+    font-size: 11px; font-weight: 600; text-align: right; line-height: 1.2;
+}
+.asset-name { font-size: 15px; font-weight: 700; margin-top: 25px; }
+.asset-code { font-size: 11px; opacity: 0.85; }
+
+/* RESPONSIF MOBILE */
+@media (max-width: 992px) {
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .content-grid { grid-template-columns: 1fr; }
+    .main-content { 
+        padding: 25px 15px !important; 
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content { 
+        padding: 15px 10px !important;
+    }
+    .content-card {
+        padding: 15px; 
+    }
+    .stats-grid {
+        gap: 12px; 
+    }
+    .welcome-text {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+}
+
+/* footer */
+.user-footer {
+    background: #2c3e50;
+    color: white;
+    padding: 20px 30px;
+    text-align: center;
+    margin-top: 50px;
+    font-size: 13px;
+}
+
+.footer-content p {
+    margin: 0;
+    opacity: 0.9;
+}
