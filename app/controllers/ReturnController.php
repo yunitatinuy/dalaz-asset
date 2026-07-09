@@ -153,13 +153,17 @@ class ReturnController extends Controller
                     $this->equipmentModel->increaseQuantity($equipmentId, $quantity);
                 }
 
+                // Hanya update jika statusnya 'good' atau 'damaged' agar sesuai dengan ENUM database
+                if ($description === 'damaged' || $description === 'good') {
+                    $this->equipmentModel->updateCondition($equipmentId, $description);
+                }
+
                 // JIKA RUSAK ATAU HILANG, BUAT TIKET COMPLAINT OTOMATIS
-                // Perbaikan 1: 'cracked' dihapus dari daftar
                 if (in_array($description, ['damaged', 'lost'])) {
 
                     $uploadedPhotos = [];
 
-                    // Perbaikan 2: Validasi Keamanan BACKEND (Wajib Foto Jika Damaged)
+                    // Perbaikan 2: Wajib Foto Jika Damaged
                     if ($description === 'damaged') {
                         if (!isset($_FILES['defect_photos']) || empty($_FILES['defect_photos']['name'][0])) {
                             throw new Exception("Evidence photos are strictly required for damaged items");

@@ -74,14 +74,14 @@
                             <label>Username <span class="required">*</span></label>
                             <input type="text" id="username" name="username" placeholder="Enter username" autocomplete="off">
                         </div>
-                        
+
                         <div class="form-group">
                             <label>Email Address <span class="required">*</span></label>
                             <input type="email" id="email" name="email" placeholder="admin@example.com" autocomplete="off">
                             <small style="font-size: 10px; color: #888;">For system notifications (calibration alerts, etc)</small>
                         </div>
                     </div>
-                    
+
                     <div class="form-row">
                         <div class="form-group" style="width: 100%;">
                             <label>Password <span class="required">*</span></label>
@@ -96,6 +96,14 @@
                 <div class="form-group">
                     <label>Profile Picture (Optional)</label>
                     <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+                </div>
+
+                <div class="form-group">
+                    <label>Signature (Optional)</label>
+                    <input type="file" id="signature" name="signature" accept="image/png, image/jpeg">
+                    <small style="display: block; margin-top: 5px; font-size: 11px; color: #666;">
+                        * Recommended: PNG file with transparent background for reports.
+                    </small>
                 </div>
 
                 <div class="form-actions">

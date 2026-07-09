@@ -174,8 +174,8 @@ const ComplaintManager = {
                             photos.forEach(photo => {
                                 if (photoContainer) {
                                     photoContainer.innerHTML += `
-                                        <a href="${cleanBase}/uploads/complaints/${photo}" target="_blank" title="Click to view full image">
-                                            <img src="${cleanBase}/uploads/complaints/${photo}" 
+                                        <a href="${cleanBase}/${photo}" target="_blank" title="Click to view full image">
+                                            <img src="${cleanBase}/${photo}" 
                                                 alt="Evidence" 
                                                 style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px; border: 1px solid #ddd; transition: transform 0.2s;"
                                                 onmouseover="this.style.transform='scale(1.05)'"

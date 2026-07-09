@@ -51,4 +51,14 @@ class ReturnModel extends Model
         $this->db->bind(':id', $id);
         return $this->db->single();
     }
+
+    // Mengambil status kondisi terakhir dari sebuah equipment berdasarkan log return
+    public function getLastReturnStatus($equipmentId)
+    {
+        $this->db->query("SELECT description FROM `return` WHERE equipment_id = :eq_id ORDER BY id DESC LIMIT 1");
+        $this->db->bind(':eq_id', $equipmentId);
+        $result = $this->db->single();
+        
+        return $result ? strtolower(trim($result['description'])) : null;
+    }
 }

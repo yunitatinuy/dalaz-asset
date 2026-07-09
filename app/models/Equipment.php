@@ -219,6 +219,15 @@ class Equipment extends Model
         return $this->db->execute();
     }
 
+    // Mengupdate status kondisi barang secara spesifik
+    public function updateCondition($id, $condition)
+    {
+        $this->db->query("UPDATE {$this->table} SET condition_status = :condition WHERE id = :id");
+        $this->db->bind(':id', $id);
+        $this->db->bind(':condition', $condition);
+        return $this->db->execute();
+    }
+
     // DASHBOARD
 
     public function getTotalEquipment()

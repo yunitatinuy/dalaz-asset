@@ -1,7 +1,8 @@
 const InOutManager = {
     baseUrl: '',
     items: [],          
-    historyData: [],    
+    historyData: [],
+    filteredHistoryData: [],
     selectedItem: null,
     
     // Paginasi
@@ -28,6 +29,10 @@ const InOutManager = {
             searchInput.addEventListener('input', () => this.searchItems());
             searchInput.addEventListener('focus', () => this.searchItems());
         }
+
+        document.getElementById('filterSearch')?.addEventListener('input', () => this.applyFilters());
+        document.getElementById('filterDate')?.addEventListener('change', () => this.applyFilters());
+        document.getElementById('filterStatus')?.addEventListener('change', () => this.applyFilters());
 
         // Tutup autocomplete jika klik di luar
         document.addEventListener('click', e => {
@@ -72,18 +77,53 @@ const InOutManager = {
             .then(d => {
                 if (d.success) {
                     this.historyData = d.data;
+                    this.filteredHistoryData = [...this.historyData];
                     this.currentPage = 1;
                     this.updatePaginationState();
                     this.renderHistory();
                     this.renderPagination();
                 } else {
-                    if (tbody) tbody.innerHTML = `<tr><td colspan="7" class="text-center text-danger">${d.message}</td></tr>`;
+                    if (tbody) tbody.innerHTML = `<tr><td colspan="8" class="text-center text-danger">${d.message}</td></tr>`;
                 }
             })
             .catch(e => {
                 console.error('Error loading history:', e);
-                if (tbody) tbody.innerHTML = '<tr><td colspan="7" class="text-center text-danger">Connection error</td></tr>';
+                if (tbody) tbody.innerHTML = '<tr><td colspan="8" class="text-center text-danger">Connection error</td></tr>';
             });
+    },
+
+    applyFilters() {
+        const searchVal = document.getElementById('filterSearch').value.toLowerCase();
+        const dateVal = document.getElementById('filterDate').value;
+        const statusVal = document.getElementById('filterStatus').value;
+
+        this.filteredHistoryData = this.historyData.filter(item => {
+            // 1. Pencocokan Kata Kunci (Nama atau Kode)
+            const matchSearch = !searchVal || 
+                (item.item_code && item.item_code.toLowerCase().includes(searchVal)) || 
+                (item.item_name && item.item_name.toLowerCase().includes(searchVal));
+            
+            // 2. Pencocokan Tanggal
+            const matchDate = !dateVal || item.date === dateVal;
+
+            // 3. Pencocokan Status (In / Out)
+            const matchStatus = !statusVal || (item.status && item.status.toLowerCase() === statusVal.toLowerCase());
+
+            return matchSearch && matchDate && matchStatus;
+        });
+
+        // Reset kembali ke halaman 1 setiap kali filter berubah
+        this.currentPage = 1;
+        this.updatePaginationState();
+        this.renderHistory();
+        this.renderPagination();
+    },
+
+    resetFilters() {
+        document.getElementById('filterSearch').value = '';
+        document.getElementById('filterDate').value = '';
+        document.getElementById('filterStatus').value = '';
+        this.applyFilters();
     },
 
     searchItems() {
@@ -173,7 +213,7 @@ const InOutManager = {
     },
 
     updatePaginationState() {
-        this.totalPages = Math.ceil(this.historyData.length / this.itemsPerPage);
+        this.totalPages = Math.ceil(this.filteredHistoryData.length / this.itemsPerPage);
         if (this.totalPages === 0) this.totalPages = 1;
     },
 
@@ -181,14 +221,14 @@ const InOutManager = {
         const tbody = document.getElementById('historyTableBody');
         if (!tbody) return;
 
-        if (this.historyData.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="7" class="text-center">No transaction history yet</td></tr>';
+        if (this.filteredHistoryData.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="8" class="text-center" style="padding: 20px; color: #888;">No transaction history found matching your filters</td></tr>';
             return;
         }
 
         const start = (this.currentPage - 1) * this.itemsPerPage;
         const end = start + this.itemsPerPage;
-        const pageData = this.historyData.slice(start, end);
+        const pageData = this.filteredHistoryData.slice(start, end);
 
         tbody.innerHTML = pageData.map((row, index) => {
             const num = start + index + 1;

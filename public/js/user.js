@@ -169,6 +169,7 @@ const UserManager = {
         document.getElementById('modalTitle').textContent = 'Add New User';
         document.getElementById('userForm').reset();
         document.getElementById('role').value = 'user';
+        document.getElementById('signature').value = '';
         this.toggleCredentialFields();
         this.openModal('userModal');
     },
@@ -191,6 +192,7 @@ const UserManager = {
                     document.getElementById('position').value = user.position || '';
                     document.getElementById('employee_no').value = user.employee_no || '';
                     document.getElementById('role').value = user.role;
+                    document.getElementById('signature').value = '';
                     
                     this.toggleCredentialFields();
                     this.openModal('userModal');

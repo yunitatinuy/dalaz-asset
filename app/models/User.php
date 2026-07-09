@@ -10,7 +10,7 @@ class User extends Model
 
     public function getAll()
     {
-        $this->db->query("SELECT id, username, email, full_name, position, employee_no, role, profile_picture, qr_code FROM {$this->table} ORDER BY full_name ASC");
+        $this->db->query("SELECT id, username, email, full_name, position, employee_no, role, profile_picture, signature,qr_code FROM {$this->table} ORDER BY full_name ASC");
         return $this->db->resultSet();
     }
 
@@ -100,6 +100,7 @@ class User extends Model
         $this->db->bind(':employee_no', $data['employee_no'] ?? '');
         $this->db->bind(':role', $data['role'] ?? 'user');
         $this->db->bind(':profile_picture', $data['profile_picture'] ?? null);
+        $this->db->bind(':signature', $data['signature'] ?? null);
         $this->db->bind(':qr_code', $data['qr_code'] ?? null);
 
         return $this->db->execute();
@@ -141,6 +142,10 @@ class User extends Model
         if (isset($data['profile_picture'])) {
             $fields[] = 'profile_picture = :profile_picture';
             $params[':profile_picture'] = $data['profile_picture'];
+        }
+        if (isset($data['signature'])) {
+            $fields[] = 'signature = :signature';
+            $params[':signature'] = $data['signature'];
         }
         if (isset($data['qr_code'])) {
             $fields[] = 'qr_code = :qr_code';

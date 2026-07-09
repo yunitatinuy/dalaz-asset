@@ -5,12 +5,16 @@ class BorrowedController extends Controller
     private $borrowedModel;
     private $equipmentModel;
     private $userModel;
+    private $returnModel;
+    private $complaintModel;
 
     public function __construct()
     {
         $this->borrowedModel = $this->model('Borrowed');
         $this->equipmentModel = $this->model('Equipment');
         $this->userModel = $this->model('User');
+        $this->returnModel = $this->model('ReturnModel');
+        $this->complaintModel = $this->model('Complaint');
     }
 
     public function index()
@@ -45,9 +49,6 @@ class BorrowedController extends Controller
         if (empty($qrCode)) {
             $this->jsonResponse(['success' => false, 'message' => 'QR Code not valid'], 400);
         }
-
-        // (Kode pembersih URL sudah dihapus karena sudah di-handle oleh JS)
-
         $user = $this->userModel->getUserByQRCode($qrCode);
 
         if (!$user) {
@@ -91,6 +92,25 @@ class BorrowedController extends Controller
 
         if (!$equipment) {
             $this->jsonResponse(['success' => false, 'message' => 'Equipment not found: ' . htmlspecialchars($qrCode)], 404);
+        }
+
+        // 1. Cek di Model Complaint (Apakah ada komplain yang belum direspon Admin)
+        if ($this->complaintModel->hasPendingComplaint($equipment['id'])) {
+            $this->jsonResponse(['success' => false, 'message' => 'Cannot borrow! Equipment is DAMAGED and waiting for Admin response.'], 400);
+        }
+
+        // 2. Cek di Model Return (Apakah status terakhirnya LOST)
+        $lastReturnStatus = $this->returnModel->getLastReturnStatus($equipment['id']);
+        if ($lastReturnStatus === 'lost') {
+            $this->jsonResponse(['success' => false, 'message' => 'Cannot borrow! Equipment is marked as LOST.'], 400);
+        }
+
+        // 3. Cek dari kolom condition_status di tabel equipment
+        if (array_key_exists('condition_status', $equipment)) {
+            $kondisi = strtolower(trim($equipment['condition_status']));
+            if ($kondisi === 'damaged' || $kondisi === 'repair' || $kondisi === 'maintenance') {
+                $this->jsonResponse(['success' => false, 'message' => 'Cannot borrow! Equipment condition is: ' . strtoupper($kondisi)], 400);
+            }
         }
 
         // Cek stock

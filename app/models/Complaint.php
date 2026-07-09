@@ -68,11 +68,29 @@ class Complaint extends Model
         $this->db->bind(':check_status', $data['check_status']);
         $this->db->bind(':return_id', $data['return_id']);
 
-        return $this->db->execute();
+        $result = $this->db->execute();
+
+        // Jika Admin memilih 'disposal' (dimusnahkan) atau 'replace' (diganti baru)
+        if ($result && (strtolower($data['check_status']) === 'disposal' || strtolower($data['check_status']) === 'replace')) {
+
+            // Cari tahu ID Equipment-nya dari tabel return
+            $this->db->query("SELECT equipment_id FROM `return` WHERE id = :return_id");
+            $this->db->bind(':return_id', $data['return_id']);
+            $ret = $this->db->single();
+
+            if ($ret && $ret['equipment_id']) {
+                // Pukul rata Quantity menjadi 0 di tabel equipment utama
+                $this->db->query("UPDATE equipment SET quantity = 0 WHERE id = :eq_id");
+                $this->db->bind(':eq_id', $ret['equipment_id']);
+                $this->db->execute();
+            }
+        }
+
+        return $result;
     }
 
     public function getDetailsByReturnId($return_id)
-    { 
+    {
         $sql = "SELECT 
                     r.id as return_id, r.date as return_date, r.time as return_time,
                     r.description as defect_description,
@@ -92,5 +110,15 @@ class Complaint extends Model
         $this->db->query($sql);
         $this->db->bind(':return_id', $return_id);
         return $this->db->single();
+    }
+
+    // Mengecek apakah sebuah equipment memiliki komplain yang belum diproses Admin
+    public function hasPendingComplaint($equipmentId)
+    {
+        $this->db->query("SELECT id FROM complaint WHERE equipment_id = :eq_id AND (check_status IS NULL OR check_status = '')");
+        $this->db->bind(':eq_id', $equipmentId);
+        $result = $this->db->single();
+
+        return $result ? true : false;
     }
 }

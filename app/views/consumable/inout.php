@@ -71,6 +71,30 @@
         </div>
     </div>
 
+    <div class="filter-container" style="padding: 15px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 250px;">
+            <label style="font-size: 12px; font-weight: 600; color: #666; margin-bottom: 5px; display: block;">Search Asset</label>
+            <input type="text" id="filterSearch" placeholder="Search by Code or Name..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+        </div>
+        <div style="width: 160px;">
+            <label style="font-size: 12px; font-weight: 600; color: #666; margin-bottom: 5px; display: block;">Filter by Date</label>
+            <input type="date" id="filterDate" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+        </div>
+        <div style="width: 150px;">
+            <label style="font-size: 12px; font-weight: 600; color: #666; margin-bottom: 5px; display: block;">Filter by Status</label>
+            <select id="filterStatus" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                <option value="">All Status</option>
+                <option value="in">IN</option>
+                <option value="out">OUT</option>
+            </select>
+        </div>
+        <div style="padding-top: 20px;">
+            <button type="button" onclick="InOutManager.resetFilters()" style="padding: 10px 20px; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">
+                Clear
+            </button>
+        </div>
+    </div>
+
     <div class="data-table">
         <div class="table-responsive">
             <table class="table" id="historyTable">

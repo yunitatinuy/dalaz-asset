@@ -3,11 +3,13 @@
 class UserController extends Controller
 {
     private $userModel;
+    private $borrowedModel;
 
     public function __construct()
     {
         $this->requireAdmin();
         $this->userModel = $this->model('User');
+        $this->borrowedModel = $this->model('Borrowed');
     }
 
     public function index()
@@ -113,7 +115,7 @@ class UserController extends Controller
                 $data['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
             } else {
                 $data['username'] = null;
-                $data['email'] = null; 
+                $data['email'] = null;
                 $data['password'] = null;
             }
 
@@ -139,6 +141,19 @@ class UserController extends Controller
 
                 if (move_uploaded_file($_FILES['profile_picture']['tmp_name'], $uploadPath)) {
                     $data['profile_picture'] = '/uploads/profiles/' . $filename;
+                }
+            }
+
+            if (isset($_FILES['signature']) && $_FILES['signature']['error'] === UPLOAD_ERR_OK) {
+                $sigUploadDir = __DIR__ . '/../../public/uploads/signatures/';
+                if (!is_dir($sigUploadDir)) mkdir($sigUploadDir, 0755, true);
+
+                $ext = pathinfo($_FILES['signature']['name'], PATHINFO_EXTENSION);
+                $filename = 'sig_' . uniqid() . '.' . $ext;
+                $uploadPath = $sigUploadDir . $filename;
+
+                if (move_uploaded_file($_FILES['signature']['tmp_name'], $uploadPath)) {
+                    $data['signature'] = '/uploads/signatures/' . $filename;
                 }
             }
 
@@ -236,7 +251,7 @@ class UserController extends Controller
                 }
             }
 
-            // Handle profile picture upload
+            // Handel upload profile picture
             if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
                 $uploadDir = __DIR__ . '/../../public/uploads/profiles/';
                 if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
@@ -246,11 +261,29 @@ class UserController extends Controller
                 $uploadPath = $uploadDir . $filename;
 
                 if (move_uploaded_file($_FILES['profile_picture']['tmp_name'], $uploadPath)) {
-                    // Delete old profile picture
+                    // Hapus gambar profil lama jika ada
                     if (!empty($oldUser['profile_picture']) && file_exists(__DIR__ . '/../../public' . $oldUser['profile_picture'])) {
                         unlink(__DIR__ . '/../../public' . $oldUser['profile_picture']);
                     }
                     $data['profile_picture'] = '/uploads/profiles/' . $filename;
+                }
+            }
+
+            // handel signature
+            if (isset($_FILES['signature']) && $_FILES['signature']['error'] === UPLOAD_ERR_OK) {
+                $sigUploadDir = __DIR__ . '/../../public/uploads/signatures/';
+                if (!is_dir($sigUploadDir)) mkdir($sigUploadDir, 0755, true);
+
+                $ext = pathinfo($_FILES['signature']['name'], PATHINFO_EXTENSION);
+                $filename = 'sig_' . uniqid() . '.' . $ext;
+                $uploadPath = $sigUploadDir . $filename;
+
+                if (move_uploaded_file($_FILES['signature']['tmp_name'], $uploadPath)) {
+                    // Hapus signature lama jika ada
+                    if (!empty($oldUser['signature']) && file_exists(__DIR__ . '/../../public' . $oldUser['signature'])) {
+                        unlink(__DIR__ . '/../../public' . $oldUser['signature']);
+                    }
+                    $data['signature'] = '/uploads/signatures/' . $filename;
                 }
             }
 
@@ -294,11 +327,26 @@ class UserController extends Controller
                 exit;
             }
 
+            // user tidak bisa dihapus jika masih ada equipment yang dipinjam
+            $activeBorrows = $this->borrowedModel->getActiveBorrowedByUser($id);
+            if ($activeBorrows && count($activeBorrows) > 0) {
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Cannot delete! This user still has ' . count($activeBorrows) . ' unreturned equipment(s).'
+                ]);
+                exit;
+            }
+
             if (!empty($user['profile_picture'])) {
                 $picPath = __DIR__ . '/../../public' . $user['profile_picture'];
                 if (file_exists($picPath)) {
                     @unlink($picPath);
                 }
+            }
+
+            if (!empty($user['signature'])) {
+                $sigPath = __DIR__ . '/../../public' . $user['signature'];
+                if (file_exists($sigPath)) @unlink($sigPath);
             }
 
             // Delete user
