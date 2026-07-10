@@ -252,10 +252,10 @@ class Equipment extends Model
 
     public function getDamagedItemsList($limit = 10)
     {
-        // Menggabungkan data dari tabel Equipment (stok rusak) dan Complaint (laporan user), menggunakan UNION ALL untuk performa
+        // Menggabungkan data dari tabel Equipment dan Complaint
         $query = "
             (
-                -- Data dari Equipment (Stok yang ditandai rusak)
+                -- Data dari Equipment (Stok rusak oleh Admin, TAPI sembunyikan jika sudah ada komplain dari User)
                 SELECT 
                     e.id, 
                     e.equipment_name, 
@@ -265,6 +265,10 @@ class Equipment extends Model
                     e.purchase_date as report_date 
                 FROM {$this->table} e
                 WHERE e.condition_status = 'damaged'
+                AND e.id NOT IN (
+                    SELECT equipment_id FROM complaint 
+                    WHERE check_status != 'Completed' OR check_status IS NULL
+                )
             )
             UNION ALL
             (

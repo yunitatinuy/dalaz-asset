@@ -17,6 +17,16 @@ const UserManager = {
         this.setupEvents();
     },
 
+    openImportModal() {
+        document.getElementById('importForm').reset();
+        this.openModal('importModal');
+    },
+
+    downloadTemplate() {
+        const baseUrlClean = this.baseUrl.replace('index.php?url=', '');
+        window.location.href = `${baseUrlClean}user/downloadTemplate`;
+    },
+
     setupEvents() {
         const form = document.getElementById('userForm');
         if (form) {
@@ -30,6 +40,45 @@ const UserManager = {
         if (roleSelect) {
             roleSelect.onchange = () => this.toggleCredentialFields();
         }
+
+        const importForm = document.getElementById('importForm');
+        if (importForm) {
+            importForm.onsubmit = (e) => {
+                e.preventDefault();
+                this.submitImport();
+            };
+        }
+    },
+
+    submitImport() {
+        const formData = new FormData(document.getElementById('importForm'));
+        const btn = document.querySelector('#importForm button[type="submit"]');
+        const originalText = btn.textContent;
+        
+        btn.textContent = 'Importing...';
+        btn.disabled = true;
+
+        fetch(`${this.baseUrl}user/import`, { method: 'POST', body: formData })
+            .then(r => r.json())
+            .then(d => {
+                if (d.success) {
+                    this.showSuccess(d.message);
+                    this.closeModal('importModal');
+                    this.loadUsers();
+                } else {
+                    let errorMsg = d.message;
+                    if (d.errors && d.errors.length > 0) {
+                        errorMsg += "\n\nDetails:\n" + d.errors.slice(0, 5).join("\n");
+                        if(d.errors.length > 5) errorMsg += `\n...and ${d.errors.length - 5} more errors.`;
+                    }
+                    this.showError(errorMsg);
+                }
+            })
+            .catch(e => this.showError('Error: ' + e.message))
+            .finally(() => {
+                btn.textContent = originalText;
+                btn.disabled = false;
+            });
     },
 
     toggleCredentialFields() {

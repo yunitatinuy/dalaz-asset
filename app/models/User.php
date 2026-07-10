@@ -87,9 +87,9 @@ class User extends Model
     {
         $this->db->query("
             INSERT INTO {$this->table} 
-            (username, password, email, full_name, position, employee_no, role, profile_picture, qr_code) 
+            (username, password, email, full_name, position, employee_no, role, profile_picture, signature, qr_code) 
             VALUES 
-            (:username, :password, :email, :full_name, :position, :employee_no, :role, :profile_picture, :qr_code)
+            (:username, :password, :email, :full_name, :position, :employee_no, :role, :profile_picture, :signature, :qr_code)
         ");
 
         $this->db->bind(':username', $data['username'] ?? null);
@@ -100,12 +100,11 @@ class User extends Model
         $this->db->bind(':employee_no', $data['employee_no'] ?? '');
         $this->db->bind(':role', $data['role'] ?? 'user');
         $this->db->bind(':profile_picture', $data['profile_picture'] ?? null);
-        $this->db->bind(':signature', $data['signature'] ?? null);
+        $this->db->bind(':signature', $data['signature'] ?? null); 
         $this->db->bind(':qr_code', $data['qr_code'] ?? null);
 
         return $this->db->execute();
     }
-
     public function update($id, $data)
     {
         $fields = [];

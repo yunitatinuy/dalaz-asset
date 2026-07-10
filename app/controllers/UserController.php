@@ -364,4 +364,126 @@ class UserController extends Controller
 
         exit;
     }
+
+    // Tambahkan fungsi ini di dalam class UserController
+
+    public function downloadTemplate()
+    {
+        $filename = "template_users.csv";
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename=' . $filename);
+
+        $output = fopen('php://output', 'w');
+        // Tambah BOM for UTF-8 (agar tidak error jika dibuka di Excel)
+        fputs($output, "\xEF\xBB\xBF");
+
+        $headers = [
+            'Full Name*',
+            'Position',
+            'Employee Number*',
+            'Role (admin/user)*',
+            'Username (Admin Only)',
+            'Email (Admin Only)',
+            'Password (Admin Only)'
+        ];
+        fputcsv($output, $headers);
+        fclose($output);
+        exit;
+    }
+
+    public function import()
+    {
+        header('Content-Type: application/json');
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_FILES['csv_file'])) {
+            echo json_encode(['success' => false, 'message' => 'Invalid file']);
+            exit;
+        }
+
+        $file = $_FILES['csv_file']['tmp_name'];
+        $handle = fopen($file, "r");
+
+        // Skip BOM
+        $bom = fread($handle, 3);
+        if ($bom != "\xEF\xBB\xBF") rewind($handle);
+
+        fgetcsv($handle); // Skip baris pertama (Header)
+
+        $count = 0;
+        $errors = [];
+        $rowIdx = 1;
+
+        try {
+            while (($row = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                $rowIdx++;
+
+                $fullName = trim($row[0] ?? '');
+                $position = trim($row[1] ?? '');
+                $empNo = trim($row[2] ?? '');
+                $role = strtolower(trim($row[3] ?? 'user'));
+                $username = trim($row[4] ?? '');
+                $email = trim($row[5] ?? '');
+                $password = trim($row[6] ?? '');
+
+                // Validasi kolom wajib dasar
+                if (empty($fullName) || empty($empNo) || empty($role)) {
+                    $errors[] = "Row $rowIdx: Full Name, Employee Number, and Role are required.";
+                    continue;
+                }
+
+                // Validasi jika Role Admin
+                if ($role === 'admin' && (empty($username) || empty($email) || empty($password))) {
+                    $errors[] = "Row $rowIdx: Admin accounts MUST have a Username, Email, and Password.";
+                    continue;
+                }
+
+                // Cek konflik data
+                if ($this->userModel->employeeNoExists($empNo)) {
+                    $errors[] = "Row $rowIdx: Employee Number '{$empNo}' already registered.";
+                    continue;
+                }
+
+                if ($role === 'admin' && $this->userModel->usernameExists($username)) {
+                    $errors[] = "Row $rowIdx: Username '{$username}' already taken.";
+                    continue;
+                }
+
+                // Siapkan data untuk insert
+                $data = [
+                    'full_name' => $fullName,
+                    'position' => $position,
+                    'employee_no' => $empNo,
+                    'role' => $role,
+                    'username' => ($role === 'admin') ? $username : null,
+                    'email' => ($role === 'admin') ? $email : null,
+                    'password' => ($role === 'admin') ? password_hash($password, PASSWORD_DEFAULT) : null,
+                    'profile_picture' => null,
+                    'signature' => null
+                ];
+
+                // Generate QR Code otomatis berdasarkan employee_no
+                $qrBase64 = QRHelper::generate($empNo);
+                $data['qr_code'] = $qrBase64 ?: null;
+
+                // Masukkan ke database
+                if ($this->userModel->insert($data)) {
+                    $count++;
+                }
+            }
+
+            fclose($handle);
+
+            $msg = "Import completed. $count users successfully added.";
+            if (count($errors) > 0) $msg .= " There are " . count($errors) . " errors (see details).";
+
+            echo json_encode([
+                'success' => true,
+                'message' => $msg,
+                'errors' => $errors
+            ]);
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => 'System error: ' . $e->getMessage()]);
+        }
+        exit;
+    }
 }

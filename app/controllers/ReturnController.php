@@ -64,6 +64,12 @@ class ReturnController extends Controller
 
         $borrowedItems = $this->borrowedModel->getActiveBorrowedByUser($user['id']);
 
+        foreach ($borrowedItems as &$item) {
+            if (isset($item['borrowed_id'])) {
+                $item['id'] = $item['borrowed_id'];
+            }
+        }
+
         echo json_encode([
             'success' => true,
             'user' => [
@@ -130,6 +136,23 @@ class ReturnController extends Controller
             $description = $_POST['description'] ?? 'good';
             $defectCause = $_POST['defect_cause'] ?? '';
 
+            // Validasi Data Paling Awal (Mencegah Database Cacat/Menggantung)
+            if ($description === 'damaged') {
+                if (!isset($_FILES['defect_photos']) || empty($_FILES['defect_photos']['name'][0])) {
+                    throw new Exception("Evidence photos are strictly required for damaged items");
+                }
+            }
+
+            // Pengamanan Jika ID Peminjaman (borrowed_id) Kosong dari JS 
+            if (empty($borrowedId) || $borrowedId === 'undefined' || $borrowedId === 'null') {
+                $activeBorrow = $this->borrowedModel->getActiveBorrowedByUserAndEquipment($userId, $equipmentId);
+                if ($activeBorrow) {
+                    $borrowedId = $activeBorrow['id'];
+                } else {
+                    throw new Exception("Data peminjaman aktif tidak ditemukan di sistem.");
+                }
+            }
+
             // 1. INSERT RETURN
             $returnData = [
                 'user_id' => $userId,
@@ -163,16 +186,8 @@ class ReturnController extends Controller
 
                     $uploadedPhotos = [];
 
-                    // Perbaikan 2: Wajib Foto Jika Damaged
-                    if ($description === 'damaged') {
-                        if (!isset($_FILES['defect_photos']) || empty($_FILES['defect_photos']['name'][0])) {
-                            throw new Exception("Evidence photos are strictly required for damaged items");
-                        }
-                    }
-
                     // Proses upload foto (Jika ada foto yang dikirim)
                     if (isset($_FILES['defect_photos']) && !empty($_FILES['defect_photos']['name'][0])) {
-                        // Perbaikan 3: Path folder disesuaikan
                         $uploadDir = 'public/uploads/complaints/';
                         if (!is_dir(__DIR__ . '/../../' . $uploadDir)) {
                             mkdir(__DIR__ . '/../../' . $uploadDir, 0777, true);
