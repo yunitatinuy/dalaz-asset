@@ -95,7 +95,7 @@ class DashboardController extends Controller
         $currentlyBorrowed = $this->borrowedModel->getRecentBorrowings();
         $overdueItems = $this->borrowedModel->getOverdueItems();
 
-        // 4. LOGIKA PERINGATAN KALIBRASI (Disederhanakan)
+        // 4. LOGIKA PERINGATAN KALIBRASI
         $calibrationData = $this->equipmentModel->getAllWithCalibration();
         $calibrationAlerts = [];
         $today = new DateTime();

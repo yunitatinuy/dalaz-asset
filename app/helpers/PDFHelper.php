@@ -68,7 +68,7 @@ class PDFHelper
         $this->pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
         $this->pageWidth = $this->pdf->getPageWidth();
         $this->pdf->SetFont('helvetica', '', 9);
-        $this->pdf->setCellPaddings(1.5, 1.5, 1.5, 1.5);
+        $this->pdf->setCellPaddings(1.5, 1.5, 1.5, 1.5); 
     }
 
     public function setupHeaderFooter($title = 'Data Teknis Peralatan', $logoPath = null, $footerImagePath = null)
